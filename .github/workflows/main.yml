@@ -50,6 +50,9 @@ jobs:
             # 8080 포트 사용 중인 프로세스 종료
             sudo fuser -k 8080/tcp || true
             
+            # 파일이 확실히 있는지 확인 후, 가장 최근에 생성된 jar 실행
+            JAR_NAME=$(ls -t *.jar | head -1)
+            
             # 기존 jar 파일 정리 (선택 사항)
             rm -rf /home/ubuntu/app/old_backup
             mkdir -p /home/ubuntu/app/old_backup
