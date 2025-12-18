@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/files")
+@RequestMapping("/api/files")
 @RequiredArgsConstructor
 public class FileController {
 
@@ -31,7 +31,7 @@ public class FileController {
         String fileName = fileStorageService.storeFile(file);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/files/")
+                .path("/api/files/")
                 .path(fileName)
                 .toUriString();
 

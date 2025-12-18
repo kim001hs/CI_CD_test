@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class UserController {
 //    리액트에서 보낸 로그인/회원가입 요청을 가장 먼저 받는다.
 //    요청을 받아 Repository에게 일을 시키고, 결과를 다시 리액트에게 돌려준다.
