@@ -1,0 +1,115 @@
+.create-post-container {
+    max-width: 800px;
+    margin: 8rem auto 4rem;
+    padding: 3rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 2rem;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.08); /* Soft shadow */
+    animation: popIn 0.6s ease-out;
+}
+
+.create-post-container h2 {
+    font-size: 3rem;
+    margin-bottom: 3rem;
+    text-align: center;
+    background: var(--ocean-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-style: normal;
+}
+
+.form-group {
+    margin-bottom: 2.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: var(--text-main);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.create-post-form input,
+.create-post-form textarea {
+    width: 100%;
+    padding: 1.5rem;
+    background: #fdfdfd;
+    border: 2px solid #eee;
+    border-radius: 1rem;
+    color: var(--text-main);
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.create-post-form input:focus,
+.create-post-form textarea:focus {
+    outline: none;
+    border-color: var(--solar-gold);
+    box-shadow: 0 10px 25px rgba(240, 152, 25, 0.15);
+    background: white;
+    transform: translateY(-2px);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 1.5rem;
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    border-radius: 1rem;
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    box-shadow: 0 10px 20px rgba(255, 81, 47, 0.3);
+}
+
+.submit-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(255, 81, 47, 0.4);
+    filter: brightness(1.1);
+    animation: jelly 0.5s;
+}
+
+.submit-btn:active {
+    transform: scale(0.98);
+}
+
+.image-preview {
+    margin-top: 1rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.image-preview img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: contain;
+    display: block;
+}
+
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Update Post Spin */
+@keyframes spinExecute {
+    0% { transform: rotateY(0deg) scale(1); }
+    50% { transform: rotateY(540deg) scale(0.5) rotateZ(10deg); }
+    100% { transform: rotateY(1080deg) scale(0); opacity: 0; }
+}
+
+.create-post-container.spinning {
+    animation: spinExecute 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
+    pointer-events: none;
+}

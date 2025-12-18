@@ -1,0 +1,24 @@
+.common-button {
+    padding: 0.75rem 1.5rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.common-button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.common-button:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+.common-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}

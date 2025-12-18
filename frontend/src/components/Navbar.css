@@ -1,0 +1,96 @@
+.navbar {
+  position: fixed;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1000px;
+  z-index: 1000; /* Increased z-index */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2.5rem;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 100px;
+  box-shadow: 0 10px 40px rgba(240, 152, 25, 0.15);
+  transition: all 0.3s ease;
+}
+
+.navbar:hover {
+  transform: translateX(-50%) translateY(-2px);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 15px 50px rgba(255, 81, 47, 0.2);
+}
+
+.navbar-logo .nav-link {
+  font-size: 1.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  letter-spacing: -0.02em;
+}
+
+.navbar-logo .nav-link::after {
+  content: '☀️';
+  font-size: 1.2rem;
+  margin-left: 0.5rem;
+  -webkit-text-fill-color: initial;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.nav-link {
+  font-weight: 700;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--sunset-orange);
+  transform: translateY(-2px);
+}
+
+.nav-welcome {
+  color: var(--ocean-teal);
+  font-weight: 800;
+  font-size: 0.95rem;
+  padding: 0.6rem 1.4rem;
+  background: rgba(44, 83, 100, 0.08);
+  border-radius: 100px;
+}
+
+.logout-btn {
+  padding: 0.8rem 1.8rem;
+  background: linear-gradient(135deg, var(--sunset-orange), var(--solar-gold));
+  color: white;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(255, 81, 47, 0.3);
+}
+
+.logout-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(255, 81, 47, 0.5);
+  filter: brightness(1.1);
+  animation: jelly 0.5s;
+}

@@ -1,0 +1,91 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px);
+    padding: 2rem;
+}
+
+.login-form {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 4rem;
+    border-radius: 2.5rem;
+    box-shadow: 0 20px 60px rgba(240, 152, 25, 0.1);
+    width: 100%;
+    max-width: 480px;
+    animation: popIn 0.6s ease-out;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+}
+
+.login-form h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 1.2rem;
+    background: #fdfdfd;
+    border: 2px solid #eee;
+    border-radius: 1rem;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    color: var(--text-main);
+}
+
+.form-group input:focus {
+    outline: none;
+    background: white;
+    border-color: var(--solar-gold);
+    box-shadow: 0 10px 25px rgba(240, 152, 25, 0.1);
+    transform: translateY(-2px);
+}
+
+.login-btn {
+    width: 100%;
+    padding: 1.2rem;
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    border-radius: 1rem;
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-top: 2rem;
+    box-shadow: 0 10px 20px rgba(255, 81, 47, 0.3);
+    transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(255, 81, 47, 0.4);
+    filter: brightness(1.1);
+    animation: jelly 0.5s;
+}
+
+.error-message {
+    background: rgba(255, 81, 47, 0.1);
+    color: var(--sunset-orange);
+    padding: 1rem;
+    font-weight: 600;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
