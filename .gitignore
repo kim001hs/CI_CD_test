@@ -1,5 +1,6 @@
 HELP.md
 IMAGE_UPLOAD_GUIDE.md
+CLAUDE.md
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
@@ -36,3 +37,4 @@ out/
 
 ### VS Code ###
 .vscode/
+.vscode
