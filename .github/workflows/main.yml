@@ -53,25 +53,26 @@ jobs:
             # 1. 기존 프로세스 종료
             sudo fuser -k 8080/tcp || true
             
-            # 2. 기존 파일 백업 (정리)
-            mkdir -p /home/ubuntu/app/old_backup
-            # 현재 폴더에 있는 예전 jar들을 백업폴더로 이동 (에러 방지용 || true)
-            mv /home/ubuntu/app/*.jar /home/ubuntu/app/old_backup/ || true
+            # 2. 백업 폴더에 있는 파일을 현재 폴더로 꺼내오기 (보험용)
+            mv /home/ubuntu/app/old_backup/*.jar /home/ubuntu/app/ || true
             
-            # 3. 새로 배포된 파일 가져오기 (SCP가 /home/ubuntu/app에 바로 보냈을 경우)
-            # 만약 파일이 안 보인다면 상위 폴더나 배포 경로 재확인 필요
-            
-            # 4. 백업 폴더가 아닌 현재 폴더에 새로 들어온 jar 실행
             cd /home/ubuntu/app
-            # 가장 최신 jar 파일 찾기
-            JAR_NAME=$(ls -t *.jar | head -1)
+            
+            # 3. 실행 가능한 진짜 JAR 파일 찾기 (plain.jar 제외)
+            # ls -t로 가장 최근 파일을 찾되, 이름에 plain이 들어간 것은 제외한다.
+            JAR_NAME=$(ls -t *.jar | grep -v "plain" | head -1)
             
             if [ -z "$JAR_NAME" ]; then
-              echo "Error: No JAR file found to execute!"
+              echo "Error: No executable JAR file found!"
               exit 1
             fi
             
+            # 4. 사용하지 않는 파일들은 다시 백업 폴더로 정리
+            mkdir -p old_backup
+            ls *.jar | grep -v "$JAR_NAME" | xargs -I{} mv {} old_backup/ || true
+            
             echo "Starting server with $JAR_NAME..."
+            # 5. 실행 (로그 기록 확인)
             nohup java -jar -Dspring.profiles.active=prod "$JAR_NAME" > app.log 2>&1 &
       
 
