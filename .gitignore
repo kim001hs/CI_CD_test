@@ -1,4 +1,5 @@
 HELP.md
+IMAGE_UPLOAD_GUIDE.md
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
