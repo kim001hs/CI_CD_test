@@ -1,11 +1,25 @@
 HELP.md
 IMAGE_UPLOAD_GUIDE.md
 CLAUDE.md
+API_DOCUMENTATION.md
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+
+# Backend (Spring)
+backend/build/
+backend/.gradle/
+
+# Frontend (React)
+frontend/node_modules/
+frontend/build/
+frontend/dist/
+
+# IDE
+.idea/
+.vscode/
 
 ### STS ###
 .apt_generated
@@ -34,7 +48,3 @@ out/
 /dist/
 /nbdist/
 /.nb-gradle/
-
-### VS Code ###
-.vscode/
-.idea/
