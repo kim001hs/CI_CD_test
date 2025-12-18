@@ -7,9 +7,21 @@ on:
     branches: [ "main" ]
 
 jobs:
-  # 1. 백엔드 빌드 작업
+  # 1. 백엔드 빌드 및 배포 작업
   backend-build:
     runs-on: ubuntu-latest
+    
+    # [추가] 깃허브 액션 빌드 서버에서 테스트를 돌리기 위한 임시 DB
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: '0000'
+          MYSQL_DATABASE: mydb
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
     steps:
       - uses: actions/checkout@v4
 
@@ -27,17 +39,38 @@ jobs:
           cd backend
           ./gradlew build
 
+      # [추가] 빌드된 JAR 파일을 EC2로 전송
+      - name: Deploy to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "backend/build/libs/*.jar"
+          target: "/home/ubuntu/app"
+          strip_components: 3 # backend/build/libs 경로를 제거하고 파일만 전송
+
+      # [추가] EC2에서 application-prod.properties를 사용하여 서버 실행
+      - name: Execute Server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            sudo fuser -k 8080/tcp || true
+            # -Dspring.profiles.active=prod 옵션을 통해 prod 파일을 읽도록 실행
+            nohup java -jar -Dspring.profiles.active=prod /home/ubuntu/app/*.jar > app.log 2>&1 &
+
   # 2. 프론트엔드 빌드 작업
   frontend-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # 리액트에 적합한 최신 LTS
-
+          node-version: '20'
       - name: Install dependencies and Build
         run: |
           cd frontend
