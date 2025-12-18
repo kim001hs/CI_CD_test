@@ -10,17 +10,6 @@ jobs:
   # 1. 백엔드 빌드 및 배포 작업
   backend-build:
     runs-on: ubuntu-latest
-    
-    # [추가] 깃허브 액션 빌드 서버에서 테스트를 돌리기 위한 임시 DB
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ROOT_PASSWORD: '0000'
-          MYSQL_DATABASE: mydb
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
       - uses: actions/checkout@v4
