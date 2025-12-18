@@ -58,11 +58,19 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
+            # 8080 포트 사용 중인 프로세스 종료
             sudo fuser -k 8080/tcp || true
-            # -Dspring.profiles.active=prod 옵션을 통해 prod 파일을 읽도록 실행
-            nohup java -jar -Dspring.profiles.active=prod /home/ubuntu/app/*.jar > app.log 2>&1 &
+            
+            # 기존 jar 파일 정리 (선택 사항)
+            rm -rf /home/ubuntu/app/old_backup
+            mkdir -p /home/ubuntu/app/old_backup
+            mv /home/ubuntu/app/*.jar /home/ubuntu/app/old_backup || true
+            
+            # 전송된 파일 위치 확인 및 실행
+            cd /home/ubuntu/app
+            nohup java -jar -Dspring.profiles.active=prod *.jar > app.log 2>&1 &
 
-  # 2. 프론트엔드 빌드 작업
+  # 2. 프론트엔드 빌드 및 배포 작업
   frontend-build:
     runs-on: ubuntu-latest
     steps:
@@ -71,8 +79,20 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+
       - name: Install dependencies and Build
         run: |
           cd frontend
           npm install
           npm run build
+
+      # [추가] 빌드된 결과물을 EC2로 전송
+      - name: Deploy Frontend to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "frontend/dist/*"  # Vite 기준 dist, CRA 기준 build
+          target: "/home/ubuntu/frontend"
+          strip_components: 2
