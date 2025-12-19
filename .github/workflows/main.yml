@@ -1,5 +1,5 @@
 name: CI/CD Practice
-# 테스트
+# 테스트 http://52.79.136.158/
 on:
   push:
     branches: [ "main" ]
